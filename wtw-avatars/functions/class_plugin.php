@@ -78,7 +78,7 @@ class wtwavatars {
 					$zhostuserid = $wtwplugins->userid;
 				}
 				$zhostid = '';
-				if (isset($wtwplugins->avatarid) && !empty($wtwplugins->avatarid)) {
+				if ($wtwplugins->hasValue($wtwplugins->avatarid)) {
 					$zresults = $wtwplugins->query("
 						select * 
 						from ".wtw_tableprefix."avatars
@@ -100,7 +100,7 @@ class wtwavatars {
 				if ((($zhostid == $wtwplugins->userid && isset($zhostid) && !empty($zhostid)) || (empty($zhostuserid) && ($wtwplugins->isUserInRole("Admin") || $wtwplugins->isUserInRole("Developer")))) && isset($wtwplugins->avatarid) && !empty($wtwplugins->avatarid)) {
 					$wtwplugins->addAdminMenuItem('wtw_adminsettingsavatar', $wtwplugins->__('Options and Settings'), -75, 'wtw_adminavatars', 5, 'wtw_adminsettingsavatar', '', $zupdateroles, "WTW.adminMenuItemSelected(this);");
 					$wtwplugins->addAdminMenuItem('wtw_admineditavatar', $wtwplugins->__('Edit 3D Avatar'), -75, 'wtw_adminavatars', 6, 'wtw_admineditavatar', '', $zupdateroles, "WTW.adminMenuItemSelected(this);");
-				} else if (isset($wtwplugins->avatarid) && !empty($wtwplugins->avatarid)) {
+				} else if ($wtwplugins->hasValue($wtwplugins->avatarid)) {
 					$wtwplugins->addAdminMenuItem('wtw_admincustomcopyavatar', $wtwplugins->__('Copy as Custom 3D Avatar'), -75, 'wtw_adminavatars', 7, 'wtw_admincustomcopyavatar', '', $zupdateroles, "WTW.adminMenuItemSelected(this);");
 				}
 				
@@ -670,6 +670,8 @@ class wtwavatars {
 			$zformdata .= "	<div class=\"wtw-dashboardboxleftfull\">\r\n";
 			$zformdata .= "		<div class=\"wtw-dashboardboxtitle\"><div id='wtw_addavatargroup' class='wtw-greenbuttonright' onclick=\"wtwavatars.openAvatarGroupForm();\">Add New</div>Avatar Groups</div>\r\n";
 			$zformdata .= "		<div class=\"wtw-dashboardbox\">\r\n";
+			$zformdata .= "			<div class='wtw-roundedbox'><b>Avatar Groups</b> are used to limit or direct users towards a theme of a 3D Community Scene. For example, only allowing medieval avatars in a castle 3D Scene.<br /></div>\r\n";
+			$zformdata .= "			<div class='wtw-clear'></div>\r\n";
 			$zformdata .= "			<div id='wtw_addavatargroupdiv' class=\"wtw-dashboardboxleftfull wtw-hide\">\r\n";
 			$zformdata .= "				<div id=\"wtw_addavatargrouptitle\" class=\"wtw-dashboardboxtitle\">Add Avatar Group</div>\r\n";
 			$zformdata .= "					<div class=\"wtw-dashboardbox\">\r\n";
@@ -726,6 +728,8 @@ class wtwavatars {
 			$zformdata .= "	<div class=\"wtw-dashboardboxleftfull\">\r\n";
 			$zformdata .= "		<div class=\"wtw-dashboardboxtitle\"><div id='wtw_addavataranimationevent' class='wtw-greenbuttonright' onclick=\"wtwavatars.openAvatarAnimationEventForm();\">Add New</div>Avatar Animation Events</div>\r\n";
 			$zformdata .= "		<div class=\"wtw-dashboardbox\">\r\n";
+			$zformdata .= "			<div class='wtw-roundedbox'><b>Avatar Animation Events</b> tie each animation to a specific control. This is the default list for any new avatar. For example, <b>onwalk</b> ties one avatar animation to the walk forward function. Additional animations can use <b>onoption</b>.<br /></div>\r\n";
+			$zformdata .= "			<div class='wtw-clear'></div>\r\n";
 			$zformdata .= "			<div id='wtw_addavataranimationeventdiv' class=\"wtw-dashboardboxleftfull wtw-hide\">\r\n";
 			$zformdata .= "				<div id=\"wtw_addavataranimationeventtitle\" class=\"wtw-dashboardboxtitle\">Add Avatar Animation Event</div>\r\n";
 			$zformdata .= "					<div class=\"wtw-dashboardbox\">\r\n";
