@@ -15,8 +15,8 @@ function WTWJS() {
 	this.lastID = '';
 	this.currentID = '';
 	this.highlightLayer = null;
-	this.walkSpeed = 1;
-	this.walkAnimationSpeed = 1;
+	this.walkSpeed = 2.6;
+	this.walkAnimationSpeed = 2.6;
 	this.turnSpeed = 1;
 	this.turnAnimationSpeed = 1;
 		this.init = {
@@ -269,25 +269,13 @@ WTWJS.prototype.getDegrees = function(zradians) {
 	return zdegrees;
 }
 
-WTWJS.prototype.registerMouseOver = function(mold) {
-	try {
-		if (mold != null) {
-			mold.actionManager = new BABYLON.ActionManager(scene);	
-			mold.actionManager.registerAction(WTW.mouseOver);
-			mold.actionManager.registerAction(WTW.mouseOut);
-		}
-	} catch (ex) {
-		WTW.log('plugins-wtw-avatars-scripts-wtwavatars_common.js-registerMouseOver=' + ex.message);
-	}
-}
-
-WTWJS.prototype.mouseOverMold = function(mold) {
+WTWJS.prototype.mouseOverMold = function(zmold) {
 	try {
 		document.body.style.cursor = 'default';
-		if (mold.meshUnderPointer != null) {
+		if (zmold != null) {
 			WTW.lastID = WTW.currentID;
-			WTW.currentID = mold.meshUnderPointer.name;
-			if (mold.meshUnderPointer.isPickable) {
+			WTW.currentID = zmold.name;
+			if (zmold.isPickable) {
 				document.body.style.cursor = 'pointer';
 			}
 		}
@@ -296,7 +284,7 @@ WTWJS.prototype.mouseOverMold = function(mold) {
 	}
 }
 
-WTWJS.prototype.mouseOutMold = function(mold) {
+WTWJS.prototype.mouseOutMold = function(zmold) {
 	try {
 		document.body.style.cursor = 'default';
 		WTW.lastID = WTW.currentID;
@@ -594,7 +582,6 @@ WTWJS.prototype.addMold3DText = function(zmoldname, zmolddef, zlenx, zleny, zlen
 		zmytext.name = zmoldname + '-text';
 		zmytext.parent = zmold;
 		zmytext.isPickable = true;
-		WTW.registerMouseOver(zmytext);
 	} catch (ex) {
 		WTW.log('plugins-wtw-avatars-scripts-wtwavatars_common.js-addMold3DText=' + ex.message);
 	}
@@ -867,7 +854,7 @@ WTWJS.prototype.onMessage = function (e) {
 		e = e || window.event;
 		zmessage = e.data.message;
 		if (zmessage != '') {
-//WTW.log(zmessage.replace('<','&lt;').replace('>','&gt;'));
+			/* WTW.log(zmessage.replace('<','&lt;').replace('>','&gt;')); */
 		}
 	} catch (ex) {
 		WTW.log('plugins-wtw-avatars-scripts-wtwavatars_common.js-onMessage=' + ex.message);

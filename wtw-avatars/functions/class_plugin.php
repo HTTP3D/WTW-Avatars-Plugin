@@ -19,9 +19,9 @@ class wtwavatars {
 		}
 	}	
 	
-	public $version = "1.0.3";
+	public $version = "1.0.5";
 	public $dbversion = "1.0.1";
-	public $versiondate = "2020-8-31";
+	public $versiondate = "2023-11-29";
 	
 	public function __call ($method, $arguments)  {
 		if (isset($this->$method)) {
@@ -161,7 +161,7 @@ class wtwavatars {
 			/* hook plugin script functions into existing wtw functions */
 			/* $wtwplugins->addScriptFunction('hookname', 'function(parameters);'); */
 			/* examples: */
-			/* $wtwplugins->addScriptFunction("onclick", "wtwavatars.onClick(zpickedname);"); */
+			/* $wtwplugins->addScriptFunction("inputclick", "wtwavatars.inputClick(zpickedname);"); */
 			/* $wtwplugins->addScriptFunction("setnewactionzonedefaults", "wtwavatars.setNewActionZoneDefaults(zactionzonetype);"); */
 			/* $wtwplugins->addScriptFunction("setactionzoneformfields", "wtwavatars.setNewActionZoneFormFields(zactionzonetype);"); */
 			/* $wtwplugins->addScriptFunction("checkactionperzone", "wtwavatars.checkActionZone(zactionzonename, zactionzoneind, zmeinzone, zothersinzone);"); */
@@ -223,7 +223,7 @@ class wtwavatars {
 						  `deleted` int(11) DEFAULT '0',
 						  PRIMARY KEY (`fieldid`),
 						  UNIQUE KEY `".WTW_AVATARS_PREFIX."fieldid_UNIQUE` (`fieldid`)
-						) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+						) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
 					"); */
 
 					$wtwplugins->saveSetting(WTW_AVATARS_PREFIX."dbversion", $this->dbversion);
@@ -392,9 +392,12 @@ class wtwavatars {
 			$zformdata .= "<input type=\"text\" id=\"wtw_tinfoavatarname\" maxlength=\"255\" onclick=\"WTW.checkKey(this, 'displayname', 0, 0);\" onkeyup=\"WTW.checkKey(this, 'displayname', 0, 0);\" onblur=\"WTW.checkKey(this, 'displayname', 0, 1);\" /><br /><br />\r\n";
 			$zformdata .= "<h2>Version</h2>\r\n";
 			$zformdata .= "<input type=\"text\" id=\"wtw_tinfoavatarversion\" maxlength=\"255\" /><br /><br />\r\n";
-			$zformdata .= "<h2>Avatar Group</h2>\r\n";
-			$zformdata .= "<div class=\"wtw-mainmenuvalue\">Groups can be assigned to a 3D Community<br />(Example: Zombie Group for Zombie Scenes).</div>\r\n";
+			$zformdata .= "<h2>Avatar Groups</h2>\r\n";
+			$zformdata .= "<div class=\"wtw-mainmenuvalue\">Groups can be assigned to a 3D Community (Example: Zombie Group for Zombie Scenes).</div>\r\n";
+			$zformdata .= "<h3>Primary Avatar Group</h3>\r\n";
 			$zformdata .= "<select id=\"wtw_tinfoavatargroup\" class='wtw-pointer'></select>\r\n";
+			$zformdata .= "<h3>Additional Avatar Groups</h3>\r\n";
+			$zformdata .= "<div id=\"wtw_tinfoavatargroups\"></div>\r\n";
 			$zformdata .= "<h2>Gender</h2>\r\n";
 			$zformdata .= "<div class=\"wtw-mainmenuvalue\">Optional, may help users search for Avatars.</div>\r\n";
 			$zformdata .= "<input type=\"text\" id=\"wtw_tinfoavatargender\" maxlength=\"255\" onclick=\"WTW.checkKey(this, 'displayname', 1, 0);\" onkeyup=\"WTW.checkKey(this, 'displayname', 1, 0);\" onblur=\"WTW.checkKey(this, 'displayname', 1, 1);\" /><br /><br />\r\n";
